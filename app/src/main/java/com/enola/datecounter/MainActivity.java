@@ -1,6 +1,7 @@
 package com.enola.datecounter;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActivityMainBinding binding;
     int[] imgResources = {R.drawable.avatar,R.drawable.luffy,R.drawable.one_piece};
     int imgIndex = 0;
+    String[] names = {"Avatar","Luffy","Luffy's Smile"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        binding.piLoading.setVisibility(View.VISIBLE);
         if(v.getId()==R.id.btNext){
             if (imgIndex==imgResources.length -1){
                 imgIndex = 0;
@@ -48,6 +52,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imgIndex--;
             }
         }
-        binding.imageView.setImageResource(imgResources[imgIndex]);
+//        try {
+//            Thread.sleep(1000);
+//        }catch (InterruptedException e){
+//            throw new RuntimeException(e);
+//        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.piLoading.setVisibility(View.INVISIBLE);
+                binding.imageView.setImageResource(imgResources[imgIndex]);
+                binding.tvName.setText(names[imgIndex]);
+            }
+        },2000);
+
     }
 }
