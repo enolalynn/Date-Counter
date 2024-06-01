@@ -45,6 +45,7 @@
                     android:textSize="16sp"
                     android:gravity="center"
                     android:textColor="#FFF5E0"
+                    android:textStyle="bold"
                     android:text="Male"/>
 
             </LinearLayout>
